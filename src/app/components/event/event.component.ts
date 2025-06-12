@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { EventService, Event } from '../../services/event.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-event.component',
@@ -8,6 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './event.component.html',
 })
 export class EventComponent {
+  private authService = inject(AuthService);
+
   events: Event[] = [];
   error = '';
 
@@ -30,7 +33,9 @@ export class EventComponent {
     });
   }
 
-  logout() {}
+  logout() {
+    this.authService.logout();
+  }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
